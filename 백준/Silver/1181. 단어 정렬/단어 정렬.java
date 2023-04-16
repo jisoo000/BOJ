@@ -1,17 +1,20 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = sc.nextInt();
-        String[] arr = new String[n];
+        int n = Integer.parseInt(br.readLine());
 
+        Set<String> set = new HashSet<>();
+        String input;
         for (int i = 0; i < n; i++) {
-            arr[i] = sc.next();
+            input = br.readLine().trim();
+            set.add(input);
         }
 
-        Arrays.sort(arr, new Comparator<String>() {
+        TreeSet<String> sortedSet = new TreeSet<>(new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
                 // 길이가 짧은 순서 우선
@@ -25,13 +28,10 @@ public class Main {
             }
         });
 
-        // 중복 제거한 후 출력
-        String prev = "";
-        for (String s : arr) {
-            if (!s.equals(prev)) {
-                System.out.println(s);
-            }
-            prev = s;
+        sortedSet.addAll(set);
+
+        for (String s : sortedSet) {
+            System.out.println(s);
         }
     }
 }
